@@ -1,0 +1,1 @@
+https://github.com/bmcustodio/docker-compose-nats-streaming-cluster

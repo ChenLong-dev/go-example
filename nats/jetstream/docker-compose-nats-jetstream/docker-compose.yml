@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  nats:
+    image: 'nats:latest'
+    command:
+      - "--js"
+    expose:
+      - "4222"
+      - "8222"
+    volumes:
+      - ./nats-server.conf:/nats-server.conf
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    hostname: nats-server
