@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  nats:
+    image: 'nats:latest'
+    command:
+      - "-c"
+      - "./nats-server.conf"
+    volumes:
+      - "./nats-server.conf:/nats-server.conf"
+      - "../certs/server.crt:/certs/server.crt"
+      - "../certs/server.key:/certs/server.key"
+      - "../certs/rootCA.pem:/certs/rootCA.pem"
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    hostname: nats-server
