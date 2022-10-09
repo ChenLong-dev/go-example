@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  nats:
+    image: 'example1:v2'
+    command:
+      - "cron"
+      - "-c"
+      - "./etc/example.yaml"
+    volumes:
+      - "./etc/example.yaml:/etc/example.yaml"
+    hostname: example
