@@ -1,6 +1,6 @@
 version: "3.8"
 
 services:
-  nats:
+  example1:
     image: 'example1:v1'
     hostname: example

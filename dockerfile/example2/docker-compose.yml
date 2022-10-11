@@ -1,11 +1,11 @@
 version: "3.8"
 
 services:
-  nats:
-    image: 'example1:v2'
+  example2:
+    image: 'example2:v1'
     command:
       - "cron"
-      - "-c"
+      - "-f"
       - "./etc/example.yaml"
     volumes:
       - "./etc/example.yaml:/etc/example.yaml"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"example1/config"
+	"example2/config"
 	"fmt"
 	"github.com/spf13/cobra"
 	"github.com/zeromicro/go-zero/core/logx"
