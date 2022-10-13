@@ -12,4 +12,4 @@ RUN go build -o /docker-go-server-ping
 
 EXPOSE 8080
 
-CMD [ "/docker-go-server-ping" ]
+CMD [ "./docker-go-server-ping" ]
