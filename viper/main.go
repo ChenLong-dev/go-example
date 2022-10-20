@@ -6,8 +6,10 @@ import (
 	"fmt"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
+	_ "github.com/spf13/viper/remote"
 	"os"
 	"strings"
+	"time"
 )
 
 // 调用AutomaticEnv函数，开启环境变量读取
@@ -175,30 +177,70 @@ beard: true
 	viper.WriteConfigAs("new1-server.yaml")
 }
 
-// map比较
-func CompDrainageTaskMap(data1 map[string][]common.DrainageTaskInfo, data2 map[string][]common.DrainageTaskInfo) bool {
-	keySlice := make([]string, 0)
-	dataSlice1 := make([]interface{}, 0)
-	dataSlice2 := make([]interface{}, 0)
+//// map比较
+//func CompDrainageTaskMap(data1 map[string][]common.DrainageTaskInfo, data2 map[string][]common.DrainageTaskInfo) bool {
+//	keySlice := make([]string, 0)
+//	dataSlice1 := make([]interface{}, 0)
+//	dataSlice2 := make([]interface{}, 0)
+//
+//	if len(data1) != len(data2) {
+//		return false
+//	}
+//	for key, value := range data1 {
+//		keySlice = append(keySlice, key)
+//		dataSlice1 = append(dataSlice1, value)
+//	}
+//	for _, key := range keySlice {
+//		if data, ok := data2[key]; ok {
+//			dataSlice2 = append(dataSlice2, data)
+//		} else {
+//			return false
+//		}
+//	}
+//	dataStr1, _ := json.Marshal(dataSlice1)
+//	dataStr2, _ := json.Marshal(dataSlice2)
+//
+//	return string(dataStr1) == string(dataStr2)
+//}
 
-	if len(data1) != len(data2) {
-		return false
+func test11() {
+	type SyncConfig struct {
+		Watch          bool
+		ConfigTimeSpec string
 	}
-	for key, value := range data1 {
-		keySlice = append(keySlice, key)
-		dataSlice1 = append(dataSlice1, value)
+	// alternatively, you can create a new viper instance.
+	var runtime_viper = viper.New()
+
+	runtime_viper.AddRemoteProvider("etcd", "http://127.0.0.1:2379", "/config/hugo.yml")
+	runtime_viper.SetConfigType("yaml") // because there is no file extension in a stream of bytes
+
+	// read from remote config the first time.
+	err := runtime_viper.ReadRemoteConfig()
+	if err != nil {
+		fmt.Println(err)
 	}
-	for _, key := range keySlice {
-		if data, ok := data2[key]; ok {
-			dataSlice2 = append(dataSlice2, data)
-		} else {
-			return false
+
+	// marshal config
+	runtime_conf := SyncConfig{}
+	runtime_viper.Unmarshal(&runtime_conf)
+
+	// open a goroutine to wath remote changes forever
+	go func() {
+		for {
+			time.Sleep(time.Second * 5) // delay after each request
+
+			// currenlty, only tested with etcd support
+			err := runtime_viper.WatchRemoteConfig()
+			if err != nil {
+				fmt.Printf("unable to read remote config: %v\n", err)
+				continue
+			}
+
+			// marshal new config into our runtime config struct. you can also use channel
+			// to implement a signal to notify the system of the changes
+			//runtime_viper.Marshal(&runtime_conf)
 		}
-	}
-	dataStr1, _ := json.Marshal(dataSlice1)
-	dataStr2, _ := json.Marshal(dataSlice2)
-
-	return string(dataStr1) == string(dataStr2)
+	}()
 }
 
 func main() {
@@ -211,5 +253,6 @@ func main() {
 	//test07()
 	//test08()
 	//test09()
-	test10()
+	//test10()
+	test11()
 }
