@@ -395,4 +395,4 @@ OIDC 的流程就是：生成 ID 令牌 -> 创建 UserInfo 端点 -> 解析 ID �
 
 
 ## 进阶篇
-
+### 实现 [go-oauth2/oauth2](https://github.com/go-oauth2/oauth2)
