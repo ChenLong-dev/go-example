@@ -6,6 +6,6 @@ import (
 
 func NewPlugin() func() string {
 	return func() string {
-		return "new a file plugin -->" + file.NewFile()
+		return "new a file plugin --> " + file.NewFile()
 	}
 }

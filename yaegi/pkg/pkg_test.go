@@ -509,7 +509,7 @@ func TestPackages_pkg13(t *testing.T) {
 func TestPackages_pkg14(t *testing.T) {
 	desc := "==== chen long ===="
 	goPath := "./_pkg14/"
-	expected := "new a file plugin -->new a file"
+	expected := "new a file plugin --> new a file"
 	topImport := "plugins"
 
 	var stdout, stderr bytes.Buffer
