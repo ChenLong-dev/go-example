@@ -7,7 +7,7 @@ type T3 struct {
 
 func NewFile() *T3 {
 	return &T3{
-		E: "T3",
-		F: 3,
+		E: "T3+guogaofeng+mmmmm",
+		F: 22,
 	}
 }

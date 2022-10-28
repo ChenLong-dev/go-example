@@ -6,7 +6,9 @@ import (
 	"fmt"
 	"github.com/traefik/yaegi/interp"
 	"github.com/traefik/yaegi/stdlib"
+	"github.com/zeromicro/go-zero/core/logx"
 	"os"
+	"time"
 )
 
 func fatalStderrf(format string, args ...interface{}) {
@@ -18,12 +20,13 @@ type T2 struct {
 	D int
 }
 
-func main() {
+func process() {
 	desc := "==== chen long ===="
 	goPath := "../../service/plugins/"
 	//expected := "new a file plugin --> new a file"
 	topImport := "fileplugin"
 
+	logx.Info(desc)
 	var stdout, stderr bytes.Buffer
 	i := interp.New(interp.Options{GoPath: goPath, Stdout: &stdout, Stderr: &stderr})
 	// Use binary standard library
@@ -55,9 +58,17 @@ func main() {
 		return
 	}
 
-	fmt.Printf("[gopath:%s][desc:%s] newData:%v\n", goPath, desc, newData.C)
+	fmt.Printf("[gopath:%s][desc:%s] newData.C:%s, newData.D:%d\n", goPath, desc, newData.C, newData.D)
 	//if msg != expected {
 	//	fatalStderrf("Got %q, want %q", msg, expected)
 	//}
 
+}
+
+func main() {
+	for {
+		process()
+		time.Sleep(time.Second * 15)
+		fmt.Println("--------------------------------------------------")
+	}
 }
