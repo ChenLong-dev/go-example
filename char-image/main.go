@@ -8,7 +8,6 @@ import (
 	"image/gif"
 	"image/jpeg"
 	"image/png"
-	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -125,18 +124,19 @@ func ImageToChars(img *image.Image, inputChars string) string {
 
 // WriteStringToFile 通过 io.WriteString 写入文件
 func WriteStringToFile(fileName string, writeInfo string) {
-	f, err := os.Create(fileName)
-	if err != nil {
-		log.Printf("创建文件失败:%s，日志%#v", fileName, err)
-		return
-	}
-	log.Printf("成功创建文件:%s", fileName)
-	defer f.Close()
-	// 将文件写进去
-	if _, err = io.WriteString(f, writeInfo); err != nil {
-		log.Printf("WriteStringToFile 写入文件失败:%+v", err)
-		return
-	}
+	//f, err := os.Create(fileName)
+	//if err != nil {
+	//	log.Printf("创建文件失败:%s，日志%#v", fileName, err)
+	//	return
+	//}
+	//log.Printf("成功创建文件:%s", fileName)
+	//defer f.Close()
+	//// 将文件写进去
+	//if _, err = io.WriteString(f, writeInfo); err != nil {
+	//	log.Printf("WriteStringToFile 写入文件失败:%+v", err)
+	//	return
+	//}
+	log.Println(writeInfo)
 	log.Printf("WriteStringToFile 写入文件成功")
 }
 
@@ -251,5 +251,5 @@ func CrateImageFromString(fileName string, imgString string, width int, height i
 
 func main() {
 	WriteStringToFile("james.txt", ImageToChars(equalScaleImageFromWidth(*(GetImage("1.jpg")), 200, 200), "#$*@    "))
-	WriteStringToFile("smallSuperMan.txt", ImageToChars(equalScaleImageFromWidth(*(CrateImageFromString("1.png", "小超人\n BUG \n不会飞", 500, 500, 50)), 150, 150), "|.    "))
+	WriteStringToFile("smallSuperMan.txt", ImageToChars(equalScaleImageFromWidth(*(CrateImageFromString("1.png", "小超人\n BUG \n不会飞", 500, 500, 50)), 150, 150), "*    "))
 }
