@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  frps:
+    image: snowdreamtech/frps:latest
+    volumes:
+      - ./frps.ini:/etc/frp/frps.ini
+    ports:
+      - "7000:7000"
+    restart: always
+    hostname: frps-host

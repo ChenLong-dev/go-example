@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  frpc:
+    image: snowdreamtech/frpc:latest
+    volumes:
+      - ./frpc.ini:/etc/frp/frpc.ini
+    restart: always
+    hostname: frpc-host
