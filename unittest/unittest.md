@@ -9,7 +9,7 @@
 
 找个地方编写下面的单元测试用例：
 
-```azure
+```
 // gofast/fst/test/helper_test.go
 func fullName(first string, second string) string {
 	return fmt.Sprintf("%s %s", first, second)
@@ -26,7 +26,7 @@ func TestFullName(t *testing.T) {
 }
 ```
 在当前文件所在目录的控制台运行：go test -v
-```azure
+```
 === RUN   TestFullName
     helper_test.go:23: The testing passed.
 --- PASS: TestFullName (0.00s)
@@ -45,7 +45,7 @@ ok      gofast/fst/test 0.140s
 
 为了简化测试代码，有三方库提取出公共的测试函数，方便编写测试用例，比如：https://github.com/stretchr/testify，这里我们用这个包改写上面的测试用例：
 
-```azure
+```
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
@@ -64,7 +64,7 @@ func TestFullName(t *testing.T) {
 
 执行go test -v，运行结果：
 
-```azure
+```
 === RUN   TestFullName
 --- PASS: TestFullName (0.00s)
 PASS
@@ -75,7 +75,7 @@ ok      gofast/fst/test 0.139s
 ## 模拟调用
 有些单元测试情况特殊，我们无法完全模拟测试的上下文场景，比如网络访问等。这时候模拟网络访问就有必要了，为此标准库提供了一个httptest包，可以让我们模拟http的网络调用，看下面的测试用例：
 
-```azure
+```
 func execReq(app *fst.GoFast, method, path string) *httptest.ResponseRecorder {
 	app.ReadyToListen()
 	req := httptest.NewRequest(method, path, nil)
@@ -99,7 +99,7 @@ func TestRouterMethod(t *testing.T) {
 
 还有一种模拟一个真实服务器的方法来测试。
 
-```azure
+```
 // 模拟网络请求2
 func newServer() *httptest.Server {
 	handler := func(rw http.ResponseWriter, r *http.Request) {
@@ -143,7 +143,7 @@ httptest.NewServer()创建的模拟服务器，默认监听的是本机IP127.0.0
 
 代码覆盖率不一定完全精准，但是可以作为参考。go test工具，就为我们提供了这么一个度量测试覆盖率的能力。如何计算测试覆盖率呢？也很简单，还是测试命令，只不过加上-cover 或者 -coverprofile=c.out（详细信息输出到文件c.out）参数。
 
-```azure
+```
 // test_helper.go
 package test
 import "fmt"
@@ -178,7 +178,7 @@ func TestCover(t *testing.T) {
 
 在这两个文件所在目录执行：go test . -coverprofile=c.out，下面的结果：
 
-```azure
+```
 ok      gofast/fst/test 0.225s  coverage: 50.0% of statements
 ```
 看到没有，单元测试测试代码覆盖率为50%。我们还可以用go的工具生成报告html页面：go tool cover -html=c.out -o=tag.html 用浏览器打开生成的tag.html页面：

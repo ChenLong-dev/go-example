@@ -87,3 +87,15 @@ local_ip = 127.0.0.1
 local_port = 445
 remote_port = 33892
 ```
+
+
+## 后台启动
+```
+后台运行frp服务
+
+    服务端： nohup ./frps -c frps.ini >/dev/null 2>&1 &
+
+    客户端： nohup ./frpc -c frpc.ini >/dev/null 2>&1 &
+
+     说明：>/dev/null 2>&1 &，表示丢弃。
+```
