@@ -305,22 +305,23 @@ func main() {
 	//aad.GroupsGet2()
 	//fmt.Printf("---------- [GroupsGet2] ----------\n\n")
 
-	GroupID := "7ff7a529-8fbc-4068-bc9b-38af5a53ae97"
-	aad.GroupsByGroupIdMemberOfGet(GroupID)
+	//GroupID := "7ff7a529-8fbc-4068-bc9b-38af5a53ae97"
+	//aad.GroupsByGroupIdMemberOfGet(GroupID)
 	fmt.Printf("---------- [GroupsByGroupIdMemberOfGet] ----------\n\n")
 
-	aad.GroupsByGroupIdMembersGet(GroupID)
+	//aad.GroupsByGroupIdMembersGet(GroupID)
 	fmt.Printf("---------- [GroupsByGroupIdMembersGet] ----------\n\n")
 
-	aad.GroupsByGroupIdTransitiveMemberOfGet(GroupID)
+	//aad.GroupsByGroupIdTransitiveMemberOfGet(GroupID)
 	fmt.Printf("---------- [GroupsByGroupIdTransitiveMemberOfGet] ----------\n\n")
 
-	aad.GroupsByGroupIdTransitiveMembersGet(GroupID)
+	//aad.GroupsByGroupIdTransitiveMembersGet(GroupID)
 	fmt.Printf("---------- [GroupsByGroupIdTransitiveMembersGet] ----------\n\n")
 
-	aad.GroupsByGroupIdOwnersGet(GroupID)
+	//aad.GroupsByGroupIdOwnersGet(GroupID)
 	fmt.Printf("---------- [GroupsByGroupIdOwnersGet] ----------\n\n")
 
-	//aad.DirectoryObjectsGet()
+	aad.DirectoryObjectsGet()
 	//fmt.Printf("---------- [DirectoryObjectsGet] ----------\n\n")
+
 }
