@@ -1,0 +1,9 @@
+[template]
+src = "idp.yaml.tmpl"
+dest = "/tmp/impauth/authserver/etc/idp.yaml"
+keys = [
+  "/impauth/authserver/etc/idp.server/idp.yaml",
+]
+
+# check_cmd = "mdbg -p 12345 -c check -a type=idp,path=/tmp/impauth/authserver/etc/idp.yaml"
+reload_cmd = "mdbg -p 12345 -c check -a type=idp,path=/tmp/impauth/authserver/etc/idp.yaml && mdbg -p 12345 -c reload -a type=idp,path=/tmp/impauth/authserver/etc/idp.yaml"

@@ -1,0 +1,9 @@
+[template]
+src = "app.yaml.tmpl"
+dest = "/tmp/impauth/authserver/etc/app.yaml"
+keys = [
+  "/impauth/authserver/etc/app.templ",
+]
+
+check_cmd = "chmod +x /home/cl/code/auth-server/cmd/authserver/etc/confd/split.sh && /home/cl/code/auth-server/cmd/authserver/etc/confd/split.sh {{.src}}"
+reload_cmd = "mdbg -p 12345 -c check -a type=app,path=/tmp/impauth/authserver/etc/app.templ && mdbg -p 12345 -c reload -a type=app,path=/tmp/impauth/authserver/etc/app.templ"

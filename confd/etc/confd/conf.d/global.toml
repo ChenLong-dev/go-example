@@ -1,0 +1,9 @@
+[template]
+src = "global.yaml.tmpl"
+dest = "/tmp/impauth/authserver/etc/global.yaml"
+keys = [
+  "/impauth/authserver/etc/global.yaml",
+]
+
+# check_cmd = "mdbg -p 12345 -c check -a type=global,path=/tmp/impauth/authserver/etc/global.yaml"
+reload_cmd = "mdbg -p 12345 -c check -a type=global,path=/tmp/impauth/authserver/etc/global.yaml && mdbg -p 12345 -c reload -a type=global,path=/tmp/impauth/authserver/etc/global.yaml"

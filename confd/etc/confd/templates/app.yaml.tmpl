@@ -1,0 +1,6 @@
+{{range gets "/impauth/authserver/etc/app.templ/*"}}
+==>
+{{base .Key}}
+{{.Value}}
+<==
+{{end}}
