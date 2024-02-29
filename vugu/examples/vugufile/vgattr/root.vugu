@@ -1,0 +1,16 @@
+<div>
+  <p vg-attr='vugu.VGAttributeListerFunc(c.makeAttrs)'></p>
+</div>
+
+<script type="application/x-go">
+type Root struct {
+  BgColor string // e.g. "blue"
+}
+func (c *Root) makeAttrs() (ret []vugu.VGAttribute) {
+  ret = append(ret, vugu.VGAttribute{
+    Key:"style",
+    Val:"background:"+c.BgColor,
+  })
+  return
+}
+</script>

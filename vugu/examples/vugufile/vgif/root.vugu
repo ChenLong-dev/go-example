@@ -1,0 +1,11 @@
+<div>
+    <p vg-if='c.ShowText'>
+        Conditional text here.
+    </p>
+</div>
+
+<script type="application/x-go">
+type Root struct { // component for "root"
+    ShowText bool `vugu:"data"`
+}
+</script>
