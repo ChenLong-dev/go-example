@@ -21,25 +21,29 @@ import "fmt"
 
 */
 
-// BubbleSort 冒泡排序（升序）
-func BubbleSort(nums []int) []int {
+// BubbleSort 冒泡排序（升序）:https://www.bilibili.com/video/BV181421876R?spm_id_from=333.788.videopod.sections&vd_source=7459db3060f4a09b27ad55e8805e9f7c
+func BubbleSort(nums []int) {
 	n := len(nums)
-	if n == 0 {
-		return nums
-	}
 	// 循环数组长度的次数
 	for i := 0; i < n; i++ {
+		flag := false // 标记是否进行过交换
 		/*
-		从第0个元素开始，依次和后面的元素进行比较
-		j<n-i-1 表示[n-i-1]个元素已经冒泡到了正确的位置，
-		不需要再比较，可以减少比较次数
+			从第0个元素开始，依次和后面的元素进行比较
+			j<n-i-1 表示[n-i-1]个元素已经冒泡到了正确的位置，
+			不需要再比较，可以减少比较次数
 		*/
-		for j := 0; j < n-i-1; j++ {
-			if nums[j] > nums[j+1] {
-				nums[j], nums[j+1] = nums[j+1], nums[j]
+		for j := 0; j < n-i-1; j++ { //
+			if nums[j] > nums[j+1] { // 前一个元素大于后一个元素，则交换它们的位置
+				nums[j], nums[j+1] = nums[j+1], nums[j] // 交换
+				flag = true // 标记进行过交换
 			}
 		}
-		fmt.Printf("第[%d]轮冒泡排序后的数组为：%v\n", i, nums)
+		fmt.Printf("第[%d]轮冒泡排序, flag=%v, temp:%d, 排序后的数组为：%v\n", i, flag, nums[n-i-1], nums)
+		if flag == false { // 如果没有进行过交换，说明已经排序完成，可以退出循环
+			break
+		} else { // 否则，继续下一轮冒泡排序
+			flag = false
+		}
+
 	}
-	return nums
 }
