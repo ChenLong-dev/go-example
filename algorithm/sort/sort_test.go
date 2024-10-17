@@ -94,8 +94,8 @@ func TestHeapSort(t *testing.T) {
 	t.Log("测试堆排序")
 	var src = []int{36, 27, 20, 60, 55, 7, 28, 36, 67, 44, 16}
 	fmt.Println("原始数组：", src)
-	data := HeapSort(src)
-	fmt.Println("排序后数组：", data)
+	HeapSort(src)
+	fmt.Println("排序后数组：", src)
 	if !reflect.DeepEqual(src, dst) {
 		t.Errorf("测试堆排序失败，结果不正确，结果为：%v， 应该等于：%v", src, dst)
 	}

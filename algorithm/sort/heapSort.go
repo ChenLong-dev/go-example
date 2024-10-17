@@ -7,10 +7,10 @@ import (
 )
 
 // HeapSort 堆排序(升序)
-func HeapSort(nums []int) []int {
+func HeapSort(nums []int) {
 	n := len(nums)
 	if n < 1 {
-		return nums
+		return
 	}
 	// 1、构建最大堆
 	for i := n/2 - 1; i >= 0; i-- {
@@ -20,16 +20,18 @@ func HeapSort(nums []int) []int {
 	fmt.Println("1、构建完成的最大堆：", nums)
 	fmt.Println("2、循环将首位（最大值）与未排序数据末尾交换，然后重新调整最大堆...")
 	// 2、循环将首位（最大值）与未排序数据末尾交换，然后重新调整最大堆
-	for i := n-1; i >= 0; i-- {
+	for i := n - 1; i >= 0; i-- {
 		nums[0], nums[i] = nums[i], nums[0] // 首位与末尾交换
+		fmt.Printf("=== 第%d次交换, 首位 [%d]%d 与末尾 [%d]%d 交换后：%v\n", n-i, 0, nums[0], i, nums[i], nums)
 		adjustMaxHeap(nums, i, 0) // 重新调整最大堆
 		//adjustMinHeap(nums, i, 0)
 	}
-	return nums
+	return
 }
 
 // 调整使之成为最大堆（降序）
-func adjustMaxHeap(nums []int, n, i int){
+func adjustMaxHeap(nums []int, n, i int) {
+	fmt.Printf("---> 调整前的最大堆[%d-%d]：%v\n", n, i, nums)
 	maxIndex := i
 	left := 2*i + 1
 	right := 2 * (i + 1)
@@ -44,13 +46,14 @@ func adjustMaxHeap(nums []int, n, i int){
 	// 如果父节点不是最大值，则交换父节点与最大值交换，并递归调整与父节点交换的位置继续堆化
 	if maxIndex != i {
 		nums[i], nums[maxIndex] = nums[maxIndex], nums[i]
-		fmt.Println("调整后的最大堆:", nums)
+		fmt.Printf("父节点不是最大值，则交换父节点 [%d]%d 与最大值 [%d]%d 交换，调整后的最大堆:%v\n", i, nums[i], maxIndex, nums[maxIndex], nums)
 		adjustMaxHeap(nums, n, maxIndex)
 	}
+	fmt.Printf("<--- 重新调整后的最大堆[%d-%d]：%v\n", n, i, nums)
 }
 
 // 调整使之成为最小堆（升序）
-func adjustMinHeap(nums []int, n, i int){
+func adjustMinHeap(nums []int, n, i int) {
 	maxIndex := i
 	left := 2*i + 1
 	right := 2 * (i + 1)
@@ -73,16 +76,17 @@ func adjustMinHeap(nums []int, n, i int){
 /////////////////////////////////////////////////////////////////
 // 用小根堆实现超时缓存机制
 
-var cache map[int] *Node
+var cache map[int]*Node
+
 const timeout = 10 // 超时时间
 
 func InitTimeoutCache() {
-	cache = make(map[int] *Node)
+	cache = make(map[int]*Node)
 }
 
 type Node struct {
 	deadline int64
-	value interface{}
+	value    interface{}
 }
 
 type TimerHeap []*Node
@@ -120,13 +124,13 @@ func tesTimeoutCache() {
 	for i := 0; i < 10; i++ {
 		node := &Node{
 			deadline: time.Now().Unix() + int64(timeout),
-			value: i,
+			value:    i,
 		}
 		cache[i] = node
 		heap.Push(&pq, node)
-		time.Sleep(time.Millisecond*20)
+		time.Sleep(time.Millisecond * 20)
 	}
-	ticker := time.NewTicker(time.Millisecond*5)
+	ticker := time.NewTicker(time.Millisecond * 5)
 	for {
 		<-ticker.C
 		for {
@@ -145,6 +149,3 @@ func tesTimeoutCache() {
 		}
 	}
 }
-
-
-
