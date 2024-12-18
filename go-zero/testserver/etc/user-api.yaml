@@ -1,0 +1,30 @@
+Name: user-api
+Host: 0.0.0.0
+Port: 8888
+
+log:
+  serverName: "user-api"
+  mod: "console"
+  encoding: "plain"
+  path: "logs"
+  level: "debug"
+  keepDays: 7
+  maxBackups: 10
+  maxSize: 100
+  rotation: size
+
+mysqlConfig:
+  datasource: "root:Shanhai*123@tcp(10.30.4.229:3306)/weldon?charset=utf8mb4&parseTime=True&loc=Local"
+  connectTimeout: 10
+
+auth:
+  # 必须是8位以上
+  secret: "secret123456"
+  expire: 3600
+
+#链路追踪
+Telemetry:
+  Name: usercenter-api
+  Endpoint: http://127.0.0.1:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger

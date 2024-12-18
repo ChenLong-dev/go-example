@@ -1,0 +1,55 @@
+syntax = "v1"
+
+type RegisterReq {
+	//代表可以接收json参数 并且是必填参数 注意 go-zero不支持多tag
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type RegisterResp {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+}
+
+type LoginReq {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type LoginResp {
+	Code  int    `json:"code"`
+	Msg   string `json:"msg"`
+	Token string `json:"token"`
+}
+
+type UserInfoRequest {
+	Id int64 `path:"id"`
+}
+
+type UserInfoResp {
+	Code     int    `json:"code"`
+	Msg      string `json:"msg"`
+	Id       int64  `json:"id"`
+	Username string `json:"username"`
+}
+
+@server (
+	//代表当前service的代码会放在account目录下
+	//这里注意 冒汗要紧贴着key
+	group: account
+	//路由前缀
+	prefix: v1
+)
+//影响配置文件名称和主文件名称
+service user-api {
+	//handler中的函数名称
+	@handler register
+	post /user/register (RegisterReq) returns (RegisterResp)
+
+	@handler login
+	post /user/login (LoginReq) returns (LoginResp)
+
+	@handler getUserInfo
+	get /user/info/:id (UserInfoRequest) returns (UserInfoResp)
+}
+

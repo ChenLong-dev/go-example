@@ -1,0 +1,16 @@
+syntax = "v1"
+
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Name    string `json:"name"`
+	Message string `json:"message"`
+}
+
+service hello01-api {
+	@handler Hello01Handler
+	get /from/:name (Request) returns (Response)
+}
+
